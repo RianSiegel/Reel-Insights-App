@@ -339,6 +339,10 @@ def download_glove_embeddings():
     glove_file = 'glove.6B.300d.txt'
     glove_path = os.path.join(glove_dir, glove_file)
 
+    # Create the directory if it doesn't exist
+    if not os.path.exists(glove_dir):
+        os.makedirs(glove_dir)
+
     if not os.path.exists(glove_path):
         print(f"Downloading GloVe embeddings to {glove_dir}...")
         url = "https://drive.google.com/uc?export=download&id=1d4Q7O59wzAfGkM0M_nC_cFX5KlTYxHde"
