@@ -341,7 +341,7 @@ def download_glove_embeddings():
 
     if not os.path.exists(glove_path):
         print(f"Downloading GloVe embeddings to {glove_dir}...")
-        url = "http://nlp.stanford.edu/data/glove.6B.zip"
+        url = "https://drive.google.com/uc?export=download&id=1d4Q7O59wzAfGkM0M_nC_cFX5KlTYxHde"
         glove_zip_path = os.path.join(glove_dir, "glove.6B.zip")
 
         # Download and extract the file
@@ -356,7 +356,7 @@ def download_glove_embeddings():
     return glove_path
 
 glove_path = download_glove_embeddings()
-embeddings_index = load_glove_embeddings('data/glove.6B.300d.txt')
+embeddings_index = load_glove_embeddings(glove_path)
 
 def get_script_embedding(script, embeddings_index, embedding_dim=300):
     words = script.split()
