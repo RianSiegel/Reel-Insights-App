@@ -3,6 +3,7 @@ import requests
 from zipfile import ZipFile
 import nltk
 nltk.download('stopwords')
+nltk.download('punkt')
 import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
@@ -110,7 +111,7 @@ def get_scene_separated_text(scenes):
     
     for i, (scene_title, scene_content) in enumerate(scenes.items(), start=1):
         cleaned_scene_content = clean_scene_text(scene_content)
-        scene_separated_text += "=" * 50 + "\n"  # 50 个 "=" 作为场景分隔符
+        scene_separated_text += "=" * 50 + "\n"
         scene_separated_text += f"{cleaned_scene_content}\n\n"
     
     return scene_separated_text
