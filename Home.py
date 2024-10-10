@@ -346,16 +346,12 @@ def download_glove_embeddings():
     if not os.path.exists(glove_path):
         print(f"Downloading GloVe embeddings to {glove_dir}...")
         url = "https://drive.google.com/uc?export=download&id=1d4Q7O59wzAfGkM0M_nC_cFX5KlTYxHde"
-        glove_zip_path = os.path.join(glove_dir, "glove.6B.zip")
-
-        # Download and extract the file
+        
+        # Download the .txt file directly
         response = requests.get(url, stream=True)
-        with open(glove_zip_path, 'wb') as f:
+        with open(glove_path, 'wb') as f:
             for chunk in response.iter_content(chunk_size=128):
                 f.write(chunk)
-
-        with ZipFile(glove_zip_path, 'r') as zip_ref:
-            zip_ref.extractall(glove_dir)
 
     return glove_path
 
