@@ -34,7 +34,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url("https://ibb.co/8PxTPwG");
+        background-image: url("https://i.ibb.co/MP1WPHK/movie-background-collage-23-2149876005.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
