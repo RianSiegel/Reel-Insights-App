@@ -322,15 +322,21 @@ def load_counts():
     with open('models/counts.pkl', 'rb') as f:
         return pickle.load(f)
     
-@st.cache_resource
+@st.cache_data
 def load_glove_embeddings(file_path):
     embeddings_index = {}
     with open(file_path, 'r', encoding='utf-8') as f:
         for line in f:
             values = line.split()
             word = values[0]
-            coefs = np.asarray(values[1:], dtype='float32')
-            embeddings_index[word] = coefs
+            coefs = values[1:]
+            
+            # Check if the number of coefficients matches the expected dimension (300)
+            if len(coefs) != 300:
+                print(f"Skipping line with unexpected number of values: {line}")
+                continue
+            
+            embeddings_index[word] = np.asarray(coefs, dtype='float32')
     return embeddings_index
 
 @st.cache_resource
