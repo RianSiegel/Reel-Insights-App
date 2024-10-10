@@ -1,3 +1,6 @@
+import os
+import requests
+from zipfile import ZipFile
 import nltk
 nltk.download('stopwords')
 import pandas as pd
@@ -330,6 +333,29 @@ def load_glove_embeddings(file_path):
             embeddings_index[word] = coefs
     return embeddings_index
 
+@st.cache_resource
+def download_glove_embeddings():
+    glove_dir = 'data'
+    glove_file = 'glove.6B.300d.txt'
+    glove_path = os.path.join(glove_dir, glove_file)
+
+    if not os.path.exists(glove_path):
+        print(f"Downloading GloVe embeddings to {glove_dir}...")
+        url = "http://nlp.stanford.edu/data/glove.6B.zip"
+        glove_zip_path = os.path.join(glove_dir, "glove.6B.zip")
+
+        # Download and extract the file
+        response = requests.get(url, stream=True)
+        with open(glove_zip_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=128):
+                f.write(chunk)
+
+        with ZipFile(glove_zip_path, 'r') as zip_ref:
+            zip_ref.extractall(glove_dir)
+
+    return glove_path
+
+glove_path = download_glove_embeddings()
 embeddings_index = load_glove_embeddings('data/glove.6B.300d.txt')
 
 def get_script_embedding(script, embeddings_index, embedding_dim=300):
